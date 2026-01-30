@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SGPA Calculator</title>
+  <style>
+    body { font-family: Arial; background: #f4f6f8; padding: 20px; }
+    h2 { color: #333; }
+    table { border-collapse: collapse; width: 100%; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background: #eee; }
+    button { margin-top: 15px; padding: 10px 20px; font-size: 16px; }
+    #result { margin-top: 20px; font-size: 20px; font-weight: bold; }
+  </style>
+</head>
+
+<body>
+
+<h2>SGPA Calculator</h2>
+
+<table>
+  <tr>
+    <th>Subject</th>
+    <th>Credits</th>
+    <th>Marks Obtained</th>
+    <th>Max Marks</th>
+  </tr>
+
+  <tr>
+    <td>Applied Mathematics</td>
+    <td>4</td>
+    <td><input id="m1"></td>
+    <td>100</td>
+  </tr>
+
+  <tr>
+    <td>OOP</td>
+    <td>4</td>
+    <td><input id="m2"></td>
+    <td>150</td>
+  </tr>
+
+  <tr>
+    <td>Data Structures</td>
+    <td>6</td>
+    <td><input id="m3"></td>
+    <td>150</td>
+  </tr>
+
+  <tr>
+    <td>Computer Architecture</td>
+    <td>4</td>
+    <td><input id="m4"></td>
+    <td>100</td>
+  </tr>
+
+  <tr>
+    <td>Digital Electronics</td>
+    <td>4</td>
+    <td><input id="m5"></td>
+    <td>150</td>
+  </tr>
+
+  <tr>
+    <td>STRW</td>
+    <td>1</td>
+    <td><input id="m6"></td>
+    <td>50</td>
+  </tr>
+</table>
+
+<button onclick="calculate()">Calculate SGPA</button>
+
+<div id="result"></div>
+
+<script>
+function gradePoint(p){
+  if(p >= 90) return 10;
+  if(p >= 80) return 9;
+  if(p >= 70) return 8;
+  if(p >= 60) return 7;
+  if(p >= 50) return 6;
+  if(p >= 45) return 5;
+  if(p >= 40) return 4;
+  return 0;
+}
+
+function calculate(){
+  let credits = [4,4,6,4,4,1];
+  let maxMarks = [100,150,150,100,150,50];
+  let inputs = ["m1","m2","m3","m4","m5","m6"];
+
+  let totalCredits = 0;
+  let totalScore = 0;
+
+  for(let i = 0; i < inputs.length; i++){
+    let obtained = Number(document.getElementById(inputs[i]).value);
+    let percent = (obtained / maxMarks[i]) * 100;
+    let gp = gradePoint(percent);
+
+    totalCredits += credits[i];
+    totalScore += credits[i] * gp;
+  }
+
+  let sgpa = totalScore / totalCredits;
+  document.getElementById("result").innerHTML =
+    "Your SGPA is: " + sgpa.toFixed(2);
+}
+</script>
+
+</body>
+</html>
